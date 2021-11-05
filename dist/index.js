@@ -8460,7 +8460,7 @@ const getDefaultBaseReleaseTag = async () => {
     owner: context.repo.owner,
     repo: context.repo.repo,
   });
-  return response.data[1].data.tag_name;
+  return response.data[1].tag_name;
 }
 
 (async function() {

@@ -39,6 +39,7 @@ const getDefaultBaseReleaseTag = async () => {
     const messages = (response.data.commits.map(c => c.commit.message) || []).join('');
     const regex = /[A-Z]{2,}-\d+/g; 
     const issueKeys = messages.match(regex);
+    console.log('Issue keys: ', issueKeys);
     core.setOutput('issue-keys', issueKeys.join(','));
 //  } catch (error) {
 //     core.setFailed(error.message);

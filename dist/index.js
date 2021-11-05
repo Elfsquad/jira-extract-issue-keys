@@ -8452,7 +8452,6 @@ const getHeadReleaseTag = async () => {
     owner: context.repo.owner,
     repo: context.repo.repo,
   });
-  console.log('Head release tag response: ', response);
   return response.data.tag_name;
 }
 
@@ -8461,8 +8460,7 @@ const getDefaultBaseReleaseTag = async () => {
     owner: context.repo.owner,
     repo: context.repo.repo,
   });
-  console.log('Base release tag response: ', response);
-  return response.data[0].tag_name;
+  return response.data[1].data.tag_name;
 }
 
 (async function() {

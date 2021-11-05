@@ -37,7 +37,7 @@ const getDefaultBaseReleaseTag = async () => {
       basehead: `${baseReleaseTag}...${headReleaseTag}`,
     });
     console.log("response: ", JSON.stringify(response));
-    const messages = response.commits.map(c => c.commit.message);
+    const messages = response.data.commits.map(c => c.commit.message);
     core.setOutput('messages', messages.join(' '));
 //  } catch (error) {
 //     core.setFailed(error.message);

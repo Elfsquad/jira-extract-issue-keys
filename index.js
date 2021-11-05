@@ -1,18 +1,24 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-let octokit = undefined;
+const context = github.context;
 
 const getHeadReleaseTag = async () => {
   const response = await octokit.request("GET /repos/{owner}/{repo}/releases/latest", {
-    owner: github.context.owner,
-    repo: github.context.repo
+    owner: context.owner,
+    repo: context.repo
   });
+  console.log('Head release tag response: ', response);
   return response.tag_name;
 }
 
 const getDefaultBaseReleaseTag = async () => {
-
+  const response = await octokit.request("GET /GET /repos/{owner}/{repo}/releases/", {
+    owner: context.owner,
+    repo: context.repo
+  });
+  console.log('Base release tag response: ', response);
+  return response[0].tag_name;
 }
 
 (async function() {

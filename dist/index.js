@@ -8464,7 +8464,7 @@ const getDefaultBaseReleaseTag = async () => {
 }
 
 (async function() {
-//  try {
+  try {
     const token = core.getInput('token');
     octokit = github.getOctokit(token);
     console.log("Initiated octokit");
@@ -8481,14 +8481,15 @@ const getDefaultBaseReleaseTag = async () => {
       basehead: `${baseReleaseTag}...${headReleaseTag}`,
     });
     const messages = (response.data.commits.map(c => c.commit.message) || []).join('');
-    console.log('Messages: ', messages);
     const regex = /[A-Z]{2,}-\d+/g; 
     const issueKeys = messages.match(regex);
-    console.log('Issue keys: ', issueKeys);
+    if (!issueKeys || issueKeys.length == 0) {
+      throw new Error("No issue keys found");
+    }
     core.setOutput('issue-keys', issueKeys.join(','));
-//  } catch (error) {
-//     core.setFailed(error.message);
-//  }
+  } catch (error) {
+     core.setFailed(error.message);
+  }
 })()
 
 

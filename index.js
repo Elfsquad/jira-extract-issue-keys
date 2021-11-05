@@ -4,6 +4,8 @@ const github = require('@actions/github');
 const context = github.context;
 
 const getHeadReleaseTag = async () => {
+  console.log('Owner: ', context.owner);
+  console.log('Repo: ', context.repo);
   const response = await octokit.rest.repos.getLatestRelease({
     owner: context.owner,
     repo: context.repo

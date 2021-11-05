@@ -8475,7 +8475,7 @@ const getDefaultBaseReleaseTag = async () => {
     const baseReleaseTag = core.getInput('release-tag') || await getDefaultBaseReleaseTag();
     console.log("Base release tag: ", baseReleaseTag);
     
-    const response = await octokit.repos.compareCommitsWithBasehead({
+    const response = await octokit.rest.repos.compareCommitsWithBasehead({
       owner: context.repo.owner,
       repo: context.repo.repo,
       basehead: `${baseReleaseTag}...${headReleaseTag}`,

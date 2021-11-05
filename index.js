@@ -22,10 +22,9 @@ const getDefaultBaseReleaseTag = async () => {
 }
 
 (async function() {
-  try {
+//  try {
     const token = core.getInput('token');
     octokit = github.getOctokit(token);
-    console.log("octokit: ", JSON.stringify(octokit));
     console.log("Initiated octokit");
 
     const headReleaseTag = await getHeadReleaseTag()
@@ -41,8 +40,8 @@ const getDefaultBaseReleaseTag = async () => {
     console.log("response: ", JSON.stringify(response));
     const messages = response.commits.map(c => c.commit.message);
     core.setOutput('messages', messages.join(' '));
-  } catch (error) {
-     core.setFailed(error.message);
-  }
+//  } catch (error) {
+//     core.setFailed(error.message);
+//  }
 })()
 

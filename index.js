@@ -36,7 +36,7 @@ const getDefaultBaseReleaseTag = async () => {
       repo: context.repo.repo,
       basehead: `${baseReleaseTag}...${headReleaseTag}`,
     });
-    const messages = response.data.commits.map(c => c.commit.message).join('');
+    const messages = (response.data.commits.map(c => c.commit.message) || []).join('');
     const regex = /[A-Z]{2,}-\d+/g; 
     const issueKeys = messages.match(regex);
     core.setOutput('issue-keys', issueKeys.join(','));

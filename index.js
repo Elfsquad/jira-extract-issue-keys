@@ -19,13 +19,19 @@ const getDefaultBaseReleaseTag = async () => {
   try {
     const token = core.getInput('token');
     octokit = github.getOctokit(token);
-    const headReleaseTag = getHeadReleaseTag()
+    console.log("Initiated octokit");
+
+    const headReleaseTag = await getHeadReleaseTag()
+    console.log("Head release tag: ", headReleaseTag);
+
     const baseReleaseTag = core.getInput('release-tag') || await getDefaultBaseReleaseTag();
+    console.log("Base release tag: ", baseReleaseTag);
     
     const response = await octokit.request("GET /GET /repos/{owner}/{repo}/compare/{base}...{head}", {
       head: headReleaseTag,
       base: baseReleaseTag
     });
+    console.log("response: ", JSON.stringify(response));
     const messages = response.commits.map(c => c.commit.message);
     core.setOutput('messages', messages.join(' '));
   } catch (error) {

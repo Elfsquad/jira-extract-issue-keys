@@ -1,0 +1,25 @@
+{
+  "name": "commit-messages-since-release",
+  "version": "1.0.0",
+  "description": "- token:   - description: Your Github token   - required: true - release-tag:   - description: The release tag, defaults to N-1 release   - required: false # Outputs - messages:   - description: All commit messages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ncc build index.js --license LICENSE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elfsquad/commit-messages-since-release.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Elfsquad/commit-messages-since-release/issues"
+  },
+  "homepage": "https://github.com/Elfsquad/commit-messages-since-release#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  }
+}

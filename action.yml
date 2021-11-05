@@ -1,0 +1,16 @@
+name: Commit Messages Since Release
+description: Retrieve commit message since release
+inputs:
+  token:
+    description: Your Github token
+    required: true
+  release-tag:
+    description: The release tag, defaults to N-1 release
+    required: false
+ouputs:
+  messages:
+    description: All commit messages
+runs:
+  using: 'node12'
+  main: 'dist/index;.js'
+

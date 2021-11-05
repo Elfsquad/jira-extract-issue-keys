@@ -8448,11 +8448,9 @@ const github = __nccwpck_require__(4176);
 const context = github.context;
 
 const getHeadReleaseTag = async () => {
-  console.log('Owner: ', context.owner);
-  console.log('Repo: ', context.repo);
   const response = await octokit.rest.repos.getLatestRelease({
-    owner: context.owner,
-    repo: context.repo
+    owner: context.repo.owner,
+    repo: context.repo.repo,
   });
   console.log('Head release tag response: ', response);
   return response.data.tag_name;
@@ -8460,8 +8458,8 @@ const getHeadReleaseTag = async () => {
 
 const getDefaultBaseReleaseTag = async () => {
   const response = await octokit.rest.repos.listReleases({
-    owner: context.owner,
-    repo: context.repo
+    owner: context.repo.owner,
+    repo: context.repo.repo,
   });
   console.log('Base release tag response: ', response);
   return response.data[0].tag_name;

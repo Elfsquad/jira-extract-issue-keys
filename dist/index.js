@@ -8480,7 +8480,6 @@ const getDefaultBaseReleaseTag = async () => {
       repo: context.repo.repo,
       basehead: `${baseReleaseTag}...${headReleaseTag}`,
     });
-    console.log("response: ", JSON.stringify(response));
     const messages = response.data.commits.map(c => c.commit.message);
     core.setOutput('messages', messages.join(' '));
 //  } catch (error) {

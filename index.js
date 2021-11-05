@@ -25,6 +25,7 @@ const getDefaultBaseReleaseTag = async () => {
   try {
     const token = core.getInput('token');
     octokit = github.getOctokit(token);
+    console.log("octokit: ", JSON.stringify(octokit));
     console.log("Initiated octokit");
 
     const headReleaseTag = await getHeadReleaseTag()

@@ -4,21 +4,21 @@ const github = require('@actions/github');
 const context = github.context;
 
 const getHeadReleaseTag = async () => {
-  const response = await octokit.request("GET /repos/{owner}/{repo}/releases/latest", {
+  const response = await octokit.rest.repos.getLatestRelease({
     owner: context.owner,
     repo: context.repo
   });
   console.log('Head release tag response: ', response);
-  return response.tag_name;
+  return response.data.tag_name;
 }
 
 const getDefaultBaseReleaseTag = async () => {
-  const response = await octokit.request("GET /GET /repos/{owner}/{repo}/releases/", {
+  const response = await octokit.rest.repos.listReleases({
     owner: context.owner,
     repo: context.repo
   });
   console.log('Base release tag response: ', response);
-  return response[0].tag_name;
+  return response.data[0].tag_name;
 }
 
 (async function() {

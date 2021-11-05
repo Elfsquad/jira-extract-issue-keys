@@ -1,4 +1,4 @@
-name: Jira extract issue keys
+name: Jira extract issues
 description: Extract issue keys from commit messages
 inputs:
   token:

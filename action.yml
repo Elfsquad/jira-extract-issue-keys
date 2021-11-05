@@ -1,5 +1,5 @@
-name: Commit Messages Since Release
-description: Retrieve commit message since release
+name: Jira extract issue keys
+description: Extract issue keys from commit messages
 inputs:
   token:
     description: Your Github token
@@ -8,8 +8,8 @@ inputs:
     description: The release tag, defaults to N-1 release
     required: false
 ouputs:
-  messages:
-    description: All commit messages
+  issue-keys:
+    description: All issue keys, separated by a comma
 runs:
   using: 'node12'
   main: 'dist/index.js'

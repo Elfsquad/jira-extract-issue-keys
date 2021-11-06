@@ -1,5 +1,7 @@
 name: Jira extract issues
 description: Extract issue keys from commit messages
+color: blue
+icon: git-commit
 inputs:
   token:
     description: Your Github token

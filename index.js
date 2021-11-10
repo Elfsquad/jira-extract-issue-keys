@@ -39,12 +39,19 @@ const getDefaultBaseReleaseTag = async () => {
     const messages = (response.data.commits.map(c => c.commit.message) || []).join('');
     const regex = /[A-Z]{2,}-\d+/g; 
     const issueKeys = messages.match(regex);
+
     if (!issueKeys || issueKeys.length == 0) {
-      throw new Error("No issue keys found");
+      const continueOnError = core.getInput('continue-on-error');
+      if (!continueOnError) {
+        throw new Error("No issue keys found"); 
+      }
     }
     core.setOutput('issue-keys', issueKeys.join(','));
   } catch (error) {
+    if (!continueOnerror) {
      core.setFailed(error.message);
+    } else {
+     core.setOutput('issue-keys', ''); 
+    }
   }
 })()
-

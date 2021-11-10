@@ -31,6 +31,8 @@ const getDefaultBaseReleaseTag = async () => {
     const baseReleaseTag = core.getInput('release-tag') || await getDefaultBaseReleaseTag();
     console.log("Base release tag: ", baseReleaseTag);
     
+    const continueOnError = core.getInput('continue-on-error');
+    
     const response = await octokit.rest.repos.compareCommitsWithBasehead({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -41,7 +43,6 @@ const getDefaultBaseReleaseTag = async () => {
     const issueKeys = messages.match(regex);
 
     if (!issueKeys || issueKeys.length == 0) {
-      const continueOnError = core.getInput('continue-on-error');
       if (!continueOnError) {
         throw new Error("No issue keys found"); 
       }

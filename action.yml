@@ -10,6 +10,9 @@ inputs:
   release-tag:
     description: The release tag, defaults to N-1 release
     required: false
+  continue-on-error:
+    required: false
+    default: false
 ouputs:
   issue-keys:
     description: All issue keys, separated by a comma

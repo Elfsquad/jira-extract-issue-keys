@@ -1,0 +1,54 @@
+= 🚀 Jira Extract Issue Keys
+
+image:https://img.shields.io/badge/license-AGPL--3.0-blue.svg["License: AGPL v3", link="https://www.gnu.org/licenses/agpl-3.0"]
+
+The `jira-extract-issue-keys` GitHub Action is designed for automating the extraction of JIRA issue keys from commit messages. This action supports extracting issue keys from conventional commit messages (`feat(EC-12345): ...`).
+
+== 📖 Usage
+
+To incorporate this action into your workflow, specify your GitHub token and, if applicable, the release tag you're targeting.
+
+[source,yaml]
+----
+# Example workflow configuration
+name: Extract JIRA Issue Keys Workflow
+on: [push]
+
+jobs:
+  key-extraction:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Extract JIRA Issue Keys
+        uses: Elfsquad/jira-extract-issue-keys@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: specify if targeting a specific release
+          release-tag: 'v1.0.0'
+----
+
+== 🔧 Inputs
+
+* `token`: **Required**. Your GitHub token for authentication.
+* `release-tag`: Optional. The base release tag to use for comparison. If not specified, the action will default to the latest release tag.
+
+== 📤 Outputs
+
+* `issue-keys`: A string containing the extracted JIRA issue keys, separated by commas.
+
+== 🤖 How it Works
+
+The action parses commit messages for patterns matching JIRA issue keys (e.g., PROJ-123) and compiles a list of these keys for use in subsequent workflow steps or for audit purposes.
+
+== 🤝 Contributing
+
+We welcome contributions! Please feel free to fork the repository, make your changes, and submit a pull request.
+
+== ⚖️ License
+
+Licensed under the AGPL-3.0. See the `LICENSE` file in the repository for full details.
+
+== ✨ Acknowledgements
+
+A big thank you to everyone who contributes to the ongoing development and maintenance of this action.
+

@@ -22,16 +22,25 @@ const getDefaultBaseReleaseTag = async () => {
 (async function() {
   try {
     const token = core.getInput('token');
-    octokit = github.getOctokit(token);
+    const runOnPR = core.getInput('run-on-pr') === 'true';
+    const continueOnError = core.getInput('continue-on-error') === 'true';
+
+    const octokit = github.getOctokit(token);
     console.log("Initiated octokit");
 
-    const headReleaseTag = await getHeadReleaseTag()
-    console.log("Head release tag: ", headReleaseTag);
+    let baseReleaseTag, headReleaseTag;
+    if (runOnPR && context.payload.pull_request) {
+      baseReleaseTag = context.payload.pull_request.base.sha;
+      headReleaseTag = context.payload.pull_request.head.sha;
+      console.log("Running on Pull Request");
+    } else {
+      headReleaseTag = await getHeadReleaseTag();
+      baseReleaseTag = core.getInput('release-tag') || await getDefaultBaseReleaseTag();
+      console.log("Running on Release");
+    }
 
-    const baseReleaseTag = core.getInput('release-tag') || await getDefaultBaseReleaseTag();
     console.log("Base release tag: ", baseReleaseTag);
-    
-    const continueOnError = core.getInput('continue-on-error');
+    console.log("Head release tag: ", headReleaseTag);
     
     const response = await octokit.rest.repos.compareCommitsWithBasehead({
       owner: context.repo.owner,
@@ -49,10 +58,10 @@ const getDefaultBaseReleaseTag = async () => {
     }
     core.setOutput('issue-keys', issueKeys.join(','));
   } catch (error) {
-    if (!continueOnerror) {
+    if (!continueOnError) {
      core.setFailed(error.message);
     } else {
      core.setOutput('issue-keys', ''); 
     }
   }
-})()
+})();

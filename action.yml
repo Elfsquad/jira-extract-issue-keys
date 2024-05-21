@@ -11,12 +11,16 @@ inputs:
     description: The release tag, defaults to N-1 release
     required: false
   continue-on-error:
+    description: Continue on error
     required: false
     default: false
-ouputs:
+  run-on-pr:
+    description: Run on pull request instead of release
+    required: false
+    default: false
+outputs:
   issue-keys:
     description: All issue keys, separated by a comma
 runs:
   using: 'node12'
   main: 'dist/index.js'
-

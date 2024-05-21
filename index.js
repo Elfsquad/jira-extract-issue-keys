@@ -22,14 +22,13 @@ const getDefaultBaseReleaseTag = async () => {
 (async function() {
   try {
     const token = core.getInput('token');
-    const runOnPR = core.getInput('run-on-pr') === 'true';
     const continueOnError = core.getInput('continue-on-error') === 'true';
 
     const octokit = github.getOctokit(token);
     console.log("Initiated octokit");
 
     let baseReleaseTag, headReleaseTag;
-    if (runOnPR && context.payload.pull_request) {
+    if (context.payload.pull_request) {
       baseReleaseTag = context.payload.pull_request.base.sha;
       headReleaseTag = context.payload.pull_request.head.sha;
       console.log("Running on Pull Request");

@@ -1,6 +1,6 @@
 {
   "name": "commit-messages-since-release",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "- token:   - description: Your Github token   - required: true - release-tag:   - description: The release tag, defaults to N-1 release   - required: false # Outputs - messages:   - description: All commit messages",
   "main": "index.js",
   "scripts": {

@@ -20,10 +20,9 @@ const getDefaultBaseReleaseTag = async () => {
 }
 
 (async function() {
-  try {
     const token = core.getInput('token');
     const continueOnError = core.getInput('continue-on-error') === 'true';
-
+  try {
     const octokit = github.getOctokit(token);
     console.log("Initiated octokit");
 

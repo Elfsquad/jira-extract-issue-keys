@@ -46,7 +46,10 @@ const getDefaultBaseReleaseTag = async () => {
       repo: context.repo.repo,
       basehead: `${baseReleaseTag}...${headReleaseTag}`,
     });
+
+    const description = context.payload.pull_request ? context.payload.pull_request.title : context.payload.release.name;
     const messages = (response.data.commits.map(c => c.commit.message) || []).join('');
+    messages.push(description);
     const regex = /[A-Z]{2,}-\d+/g; 
     const issueKeys = messages.match(regex);
 
